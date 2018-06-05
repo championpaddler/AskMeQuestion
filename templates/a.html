@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+
+$(document).keypress(
+    function(event){
+     if (event.which == '13') {
+        event.preventDefault();
+      }
+
+
+});
+
+function myFunction(r)
+      {  var t=r;
+       
+	document.getElementById("input").value = t;
+      }
+      </script>
+    </head>
+<style>
+
+.Chat {
+    max-height:70%;
+    overflow:auto;
+}
+body {
+    margin: 0 auto;
+    max-width: 800px;
+    padding: 0 20px;
+}
+input{
+    border: 2px solid #dedede;
+    background-color:#ffe;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+.container {
+    border: 2px solid #dedede;
+    background-color: #FFF;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+.message {
+    border: 2px solid #dedede;
+    background-color: #7FD9FF;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+.messager {
+    border: 2px solid #dedede;
+    background-color: #FFF;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+.container:hover {
+    background-color: yellow;
+}
+.p {
+    border: 2px solid #dedede;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px 0;
+}
+.darker {
+    border-color: #ccc;
+    background-color: #ffd800;
+}
+.light {
+    border-color: #ccc;
+    background-color: #FFFFFF;
+}
+.container::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.container img {
+    float: left;
+    max-width: 60px;
+    width: 100%;
+    margin-right: 20px;
+    border-radius: 50%;
+}
+
+.container img.right {
+    float: right;
+    margin-left: 20px;
+    margin-right:0;
+}
+
+.time-right {
+    float: right;
+    color: #aaa;
+}
+
+.time-left {
+    float: left;
+    color: #999;
+}
+</style>
+</head>
+<body onLoad="moveWin();">
+
+<h2  class="container darker">Chat Messages</h2>
+
+         
+            
+<div class="Chat">
+
+
+
+</div>      
+         
+               
+               
+            
+
+<form>
+<input type="text" id="input" name="username" class="form-control"  required autofocus>
+<button   class="container darker" type="button" >Ask</button>
+</form>
+<h2  class="container darker">FAQS</h2>
+{% for i in test %}
+<button class="container darker" onclick="myFunction({{i}});" >{{i}}</button>
+{% endfor %}         
+
+<script type= text/javascript>
+$(function() {
+    $('button').click(function() {
+        
+        
+        $.ajax({
+            url: '/signUpUser',
+            data: $('form').serialize(),
+            type: 'POST',
+            success: function(data) {
+			var data = $.parseJSON(data);
+
+
+   
+ 
+
+      
+$(".Chat").append( "<div  class=message >'"+data[0].q+"'</div>" );
+$(".Chat").append( "<div  class=messager >'"+data[1].a+"'</div>" );
+   
+  window.scrollTo(0, 0);
+
+
+  $('.Chat ').animate({
+        scrollTop: $('.Chat .messager:last-child').position().top    }, 'fast');
+
+
+
+           },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>
