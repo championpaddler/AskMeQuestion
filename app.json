@@ -1,0 +1,7 @@
+{
+  "name": "AskMeQuestion Bot",
+  "description": "A barebones Python app using Flask",
+  "repository": "https://github.com/sk9331657/AskMeQuestion",
+  "logo": "https://avatars3.githubusercontent.com/u/19342708?s=400&v=4",
+  "keywords": ["python", "flask", "static"]
+}
